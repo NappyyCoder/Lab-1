@@ -21,31 +21,31 @@ function App() {
       img: image_woman,
       name: "Lily Smith",
       title: "Computer Engineer",
-      email: "clayleo1136@gmail.com",
+      email: "LilySmith@gmail.com ",
     },
     {
       img: image_man,
       name: "Bob Johnson",
       title: "UX Designer",
-      email: "clayleo116@gmail.com",
+      email: "Bob@gmail.com",
     },
     {
       img: image_woman,
       name: "Ava Smith",
       title: "Web Developer",
-      email: "clayleo1136@gmail.com",
+      email: "Ava1136@gmail.com",
     },
     {
       img: image_man,
       name: "John Doe",
       title: "Software Engineer",
-      email: "clayleo116@gmail.com",
+      email: "John116@gmail.com",
     },
     {
       img: image_woman,
       name: "Eva Smith",
       title: "Graphic Designer",
-      email: "clayleo1136@gmail.com",
+      email: "Eva1136@gmail.com",
     },
   ];
 
@@ -60,7 +60,9 @@ function App() {
   });
 
   const handleTitleChange = (event) => setTitle(event.target.value);
-  const handleSearchChange = (event) => setSearch(event.target.value);
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value); console.log(event.target.value);
+  }
   const handleReset = () => {
     setTitle("All");
     setSearch("");

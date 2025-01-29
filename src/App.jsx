@@ -49,27 +49,18 @@ function App() {
     },
   ];
 
-  // Get unique titles
   const titles = ["All", ...new Set(profiles.map((profile) => profile.title))];
 
   const [title, setTitle] = useState("All");
   const [search, setSearch] = useState("");
 
-  // Filter profiles based on title and search input
   const filteredProfiles = profiles.filter((profile) => {
-    const matchesTitle = title === "All" || profile.title === title;
-    const matchesSearch = profile.name.toLowerCase().includes(search.toLowerCase());
-    return matchesTitle && matchesSearch;
+    return (title === "All" || profile.title === title) &&
+      profile.name.toLowerCase().includes(search.toLowerCase());
   });
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  };
-
+  const handleTitleChange = (event) => setTitle(event.target.value);
+  const handleSearchChange = (event) => setSearch(event.target.value);
   const handleReset = () => {
     setTitle("All");
     setSearch("");
@@ -92,12 +83,9 @@ function App() {
             <label htmlFor="title-select">Filter by title: </label>
             <select id="title-select" value={title} onChange={handleTitleChange}>
               {titles.map((t, index) => (
-                <option key={index} value={t}>
-                  {t}
-                </option>
+                <option key={index} value={t}>{t}</option>
               ))}
             </select>
-
             <input
               type="text"
               id="search"
@@ -105,7 +93,6 @@ function App() {
               onChange={handleSearchChange}
               placeholder="Search by name..."
             />
-
             <button onClick={handleReset}>Reset</button>
           </div>
         </Wrapper>

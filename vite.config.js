@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
 
 
-  base: '/Lab-4.1/',
+  base: '/Lab-1/',
 })
 
 

@@ -1,18 +1,20 @@
+import { motion } from 'framer-motion';
 import img from './photo1.png';
 import PropTypes from 'prop-types';
+import styles from '../styles/card.module.css';
 
 const Card1 = ({ img, name, title, email }) => {
     return (
-        <div className="profile-card">
-            <div className="profile-card__img">
+        <motion.div className={styles.profileCard}>
+            <div className={styles.profileCardImg}>
                 <img src={img} alt={name} />
             </div>
-            <div className="profile-card-content">
+            <div className={styles.profileCardContent}>
                 <p>{name}</p>
                 <p>{title}</p>
                 <p><a href={`mailto:${email}`}>{email}</a></p>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

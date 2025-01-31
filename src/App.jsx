@@ -1,4 +1,4 @@
-import "./styles/card.css";
+import "./styles/card.module.css";
 import About from "./components/About.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Card2 from "./components/Card2.jsx";
@@ -58,6 +58,7 @@ function App() {
     return (title === "All" || profile.title === title) &&
       profile.name.toLowerCase().includes(search.toLowerCase());
   });
+
 
   const handleTitleChange = (event) => setTitle(event.target.value);
   const handleSearchChange = (event) => {

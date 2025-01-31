@@ -1,0 +1,12 @@
+/* Default Light Mode (White Background, Black Text) */
+body {
+    background-color: white !important;
+    color: black !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: black !important;
+    color: white !important;
+}

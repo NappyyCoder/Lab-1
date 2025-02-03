@@ -45,9 +45,16 @@
 }
 
 .profileCardContent p {
+    &.darkMode {
+        margin: 8px 0;
+        font-size: 16px;
+        color: black;
+        /* Dark mode text color */
+    }
+
     margin: 8px 0;
     font-size: 16px;
-    color: #333;
+    color: white;
 }
 
 .profileCardContent p a {

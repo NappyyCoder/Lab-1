@@ -1,46 +1,65 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #333;
-    color: white;
+/* Default background for light mode */
+
+body {
+    &.darkmode {
+        background-color: #23292e;
+        /* Dark mode button background */
+        color: white;
+    }
+
+    background-color: white;
+    /* Dark mode button background */
+    color: black;
 }
 
-.navbar ul {
-    display: flex;
-    list-style-type: none;
-    gap: 20px;
-}
 
-.navbar li a {
-    color: white;
-    text-decoration: none;
+/* Default button background */
+
+
+
+/* Background color for dark mode */
+
+
+/* Links */
+.links {
+    &.darkMode {
+        color: white;
+        /* Dark mode text color */
+    }
+
+    color: black;
+    /* Default text color */
     font-size: 16px;
+    margin-left: 40px;
 }
 
-/* Toggle Button */
-.modeToggle {
-    background: none;
-    border: 2px solid white;
-    color: white;
-    padding: 8px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background 0.3s ease;
+/* Navbar */
+.navBarDiv {
+    &.darkMode {
+        background-color: #333;
+        /* Dark mode navbar */
+    }
+
+    background-color: white;
+    /* Default navbar background */
+    width: 100%;
+    padding: 25px;
+    margin-left: -30px;
 }
 
-.modeToggle:hover {
-    background: #555;
-}
+/* Buttons */
+button {
+    &.darkMode {
+        background-color: #23292e;
+        /* Dark mode button background */
+        color: white;
+    }
 
-/* Dark Mode Navbar */
-body.dark-mode .navbar {
-    background-color: #222;
-}
-
-body.dark-mode .modeToggle {
-    border-color: #bbb;
-    color: #bbb;
+    background-color: rgb(253, 253, 253);
+    color:black;
+    /* Default button background */
+    font-size: 12px;
+    margin-left: 40px;
+    border: 0px;
+    padding: 10px;
 }

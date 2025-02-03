@@ -5,11 +5,23 @@ import Card2 from "./components/Card2.jsx";
 import Wrapper from "./components/Wrapper.jsx";
 import image_man from "./assets/photo1.png";
 import image_woman from "./assets/photo2.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./App.css";
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
+  const switchMode = () => {
+    if (darkMode) {
+      setDarkMode(false);
+    } else {
+      setDarkMode(true)
+    }
+    console.log(darkMode);
+  }
+
+
+
   const profiles = [
     {
       img: image_man,
@@ -54,6 +66,8 @@ function App() {
   const [title, setTitle] = useState("All");
   const [search, setSearch] = useState("");
 
+
+
   const filteredProfiles = profiles.filter((profile) => {
     return (title === "All" || profile.title === title) &&
       profile.name.toLowerCase().includes(search.toLowerCase());
@@ -72,7 +86,7 @@ function App() {
   return (
     <>
       <header>
-        <Navbar />
+        <Navbar darkMode={darkMode} switchMode={switchMode} />
       </header>
       <main>
         <Wrapper>
@@ -86,7 +100,7 @@ function App() {
             <label htmlFor="title-select">Filter by title: </label>
             <select id="title-select" value={title} onChange={handleTitleChange}>
               {titles.map((t, index) => (
-                <option key={index} value={t}>{t}</option>
+                <option key={index} value={t} darkMode={darkMode}>{t}</option>
               ))}
             </select>
             <input
@@ -102,11 +116,12 @@ function App() {
         <Wrapper>
           <div className="profile-cards">
             {filteredProfiles.map((profile) => (
-              <Card2 key={profile.email} {...profile} />
+              <Card2 key={profile.email} {...profile} darkMode={darkMode} />
             ))}
           </div>
         </Wrapper>
       </main>
+
     </>
   );
 }

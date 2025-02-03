@@ -12,6 +12,13 @@ body {
     color: black;
 }
 
+.about {
+    &.darkMode {
+        color: white;
+    }
+
+    color:black;
+}
 
 /* Default button background */
 

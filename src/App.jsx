@@ -88,12 +88,12 @@ function App() {
       <header>
         <Navbar darkMode={darkMode} switchMode={switchMode} />
       </header>
-      <main>
+      <main darkMode={darkMode} switchMode={switchMode}>
         <Wrapper>
           <h1>Profile App</h1>
         </Wrapper>
         <Wrapper>
-          <About />
+          <About darkMode={darkMode} switchMode={switchMode} />
         </Wrapper>
         <Wrapper>
           <div className="filter-wrapper">

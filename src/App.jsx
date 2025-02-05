@@ -3,6 +3,7 @@ import About from "./components/About.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Card2 from "./components/Card2.jsx";
 import Wrapper from "./components/Wrapper.jsx";
+import ProfileForm from "./components/ProfileForm.jsx";
 import image_man from "./assets/photo1.png";
 import image_woman from "./assets/photo2.jpg";
 import { useState, useEffect } from "react";
@@ -88,19 +89,23 @@ function App() {
       <header>
         <Navbar darkMode={darkMode} switchMode={switchMode} />
       </header>
-      <main darkMode={darkMode} switchMode={switchMode}>
+      <main >
+
         <Wrapper>
           <h1>Profile App</h1>
         </Wrapper>
         <Wrapper>
-          <About darkMode={darkMode} switchMode={switchMode} />
+          <About />
+          <ProfileForm>
+
+          </ProfileForm>
         </Wrapper>
         <Wrapper>
           <div className="filter-wrapper">
             <label htmlFor="title-select">Filter by title: </label>
             <select id="title-select" value={title} onChange={handleTitleChange}>
               {titles.map((t, index) => (
-                <option key={index} value={t} darkMode={darkMode}>{t}</option>
+                <option key={index} value={t}>{t}</option>
               ))}
             </select>
             <input
@@ -120,6 +125,7 @@ function App() {
             ))}
           </div>
         </Wrapper>
+
       </main>
 
     </>

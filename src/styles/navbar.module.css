@@ -1,17 +1,5 @@
 /* Default background for light mode */
 
-body {
-    &.darkmode {
-        background-color: #23292e;
-        /* Dark mode button background */
-        color: white;
-    }
-
-    background-color: white;
-    /* Dark mode button background */
-    color: black;
-}
-
 .about {
     &.darkMode {
         color: white;

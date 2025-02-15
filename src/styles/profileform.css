@@ -1,0 +1,69 @@
+/* Profile Form Container */
+.profile-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Fields */
+.profile-form input,
+.profile-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Textarea */
+.profile-form textarea {
+    min-height: 100px;
+    resize: none;
+}
+
+/* File Upload */
+.profile-form input[type="file"] {
+    border: none;
+    padding: 5px;
+}
+
+/* Submit Button */
+.profile-form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.profile-form button:hover {
+    background-color: #0056b3;
+}
+
+.profile-form button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Success & Error Messages */
+.profile-form p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.profile-form p.error {
+    color: red;
+}
+
+.profile-form p.success {
+    color: green;
+}

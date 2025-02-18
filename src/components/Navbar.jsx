@@ -1,18 +1,26 @@
-import { useState, useEffect } from "react";
-import styles from "../styles/navbar.module.css";
+// components/Navbar.jsx
+import React from "react";
+import { Link } from "react-router-dom";
+import { style } from "../styles/navbar.module.css";
 
-const Navbar = ({ switchMode, darkMode }) => {
-
+const Navbar = ({ darkMode, switchMode }) => {
     return (
-        <div className={`${styles["navBarDiv"]} ${darkMode ? styles["darkMode"] : ""}`}>
-
-            <a href="#" className={`${styles["links"]} ${darkMode ? styles["darkMode"] : ""}`}>Home</a>
-            <a href="#" className={`${styles["links"]} ${darkMode ? styles["darkMode"] : ""}`}>About</a>
-            <a href="#" className={`${styles["links"]} ${darkMode ? styles["darkMode"] : ""}`}>Other</a>
-            <button className={`${styles["button"]} ${darkMode ? styles["darkMode"] : ""}`} onClick={switchMode}>Switch Mode</button>
-
-
-        </div>
+        <nav>
+            <ul>
+                <li>
+                    <Link to="/">Home</Link>
+                </li>
+                <li>
+                    <Link to="/add-profile">Add Profile</Link>
+                </li>
+                <li>
+                    <Link to="/about">About</Link>
+                </li>
+            </ul>
+            <button onClick={switchMode}>
+                {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            </button>
+        </nav>
     );
 };
 

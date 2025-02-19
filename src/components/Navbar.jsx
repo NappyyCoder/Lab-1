@@ -1,14 +1,14 @@
 // components/Navbar.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import { style } from "../styles/navbar.module.css";
+import styles from "../styles/navbar.module.css";
 
 const Navbar = ({ darkMode, switchMode }) => {
     return (
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/home">Home</Link>
                 </li>
                 <li>
                     <Link to="/add-profile">Add Profile</Link>

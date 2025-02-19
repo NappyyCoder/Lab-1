@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Navbar from "../components/Navbar.jsx";
-import Home from "../components/Home.jsx";
-import AddProfile from "../components/AddProfile.jsx";
-import About from "../components/About.jsx";
-import NotFound from "../components/NotFound.jsx";
-import Wrapper from ".//components/Wrapper.jsx";
+import { HashRouter, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar.jsx";
+import Home from "./components/Home.jsx";
+import AddProfile from "./components/AddProfile.jsx";
+import About from "./components/About.jsx";
+import NotFound from "./components/NotFound.jsx";
+import Wrapper from "./components/Wrapper.jsx";
 
 import "./App.css";
 
@@ -28,14 +28,14 @@ function App() {
       </header>
       <main>
         <Wrapper>
-          <Switch>
-            <Routes>
-              <Route exact path="/" render={() => <Home profiles={profiles} darkMode={darkMode} />} />
-              <Route path="/add-profile" component={AddProfile} />
-              <Route path="/about" component={About} />
-              <Route component={NotFound} /> {/* Default route for 404 */}
-            </Routes>
-          </Switch>
+
+          <Routes>
+            <Route path="/home" element={<Home profiles={profiles} />} />
+            <Route path="/add-profile" element={<AddProfile />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+
         </Wrapper>
       </main>
     </HashRouter>

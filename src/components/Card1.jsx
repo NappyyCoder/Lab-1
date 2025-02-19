@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import img from './photo1.png';
 import PropTypes from 'prop-types';
-import styles from '../styles/card.module.css';
+import styles from './styles/card.module.css';
 
 const Card1 = ({ img, name, title, email }) => {
     return (

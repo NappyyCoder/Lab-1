@@ -1,6 +1,6 @@
 // components/AddProfile.jsx
 import React from "react";
-import ProfileForm from "../components/ProfileForm.jsx";
+import ProfileForm from "./ProfileForm";
 
 const AddProfile = () => {
     return (

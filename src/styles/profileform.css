@@ -1,69 +1,206 @@
 /* Profile Form Container */
 .profile-form {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: var(--background-light);
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: all var(--transition-speed);
+}
+
+.darkMode .profile-form {
+    background: var(--gray-800);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Title */
+.profile-form h1 {
+    font-size: 2rem;
+    color: var(--text-dark);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+.darkMode .profile-form h1 {
+    color: var(--text-light);
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+}
+
+/* Labels */
+.form-group label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    transition: color var(--transition-speed);
+}
+
+.darkMode .form-group label {
+    color: var(--text-light);
 }
 
 /* Input Fields */
-.profile-form input,
-.profile-form textarea {
+.form-group input:not([type="file"]),
+.form-group textarea {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
+    padding: 1rem;
+    border: 2px solid var(--gray-200);
+    border-radius: 0.75rem;
+    background: var(--background-light);
+    color: var(--text-dark);
+    font-size: 1rem;
+    transition: all var(--transition-speed);
 }
 
-/* Textarea */
-.profile-form textarea {
-    min-height: 100px;
-    resize: none;
+.darkMode .form-group input:not([type="file"]),
+.darkMode .form-group textarea {
+    background: var(--background-dark);
+    border-color: var(--gray-800);
+    color: var(--text-light);
 }
 
-/* File Upload */
-.profile-form input[type="file"] {
-    border: none;
-    padding: 5px;
+/* Input Focus States */
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+/* Textarea Specific */
+.form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* File Upload Styling */
+.file-upload {
+    margin-bottom: 2rem;
+}
+
+.file-upload label {
+    display: block;
+    padding: 1.5rem;
+    background: var(--gray-100);
+    border: 2px dashed var(--gray-200);
+    border-radius: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+}
+
+.darkMode .file-upload label {
+    background: var(--gray-800);
+    border-color: var(--gray-800);
+}
+
+.file-upload label:hover {
+    border-color: var(--primary-color);
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.file-upload input[type="file"] {
+    display: none;
+}
+
+.file-upload-text {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--gray-800);
+}
+
+.darkMode .file-upload-text {
+    color: var(--gray-200);
 }
 
 /* Submit Button */
-.profile-form button {
-    background-color: #007bff;
+.submit-button {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
+    border-radius: 0.75rem;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all var(--transition-speed);
+    margin-top: 1rem;
 }
 
-.profile-form button:hover {
-    background-color: #0056b3;
+.submit-button:hover:not(:disabled) {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-.profile-form button:disabled {
-    background-color: #ccc;
+.submit-button:disabled {
+    background: var(--gray-200);
     cursor: not-allowed;
 }
 
-/* Success & Error Messages */
-.profile-form p {
-    font-size: 14px;
-    text-align: center;
+/* Error Messages */
+.error-message {
+    color: #dc2626;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.profile-form p.error {
-    color: red;
+/* Success Messages */
+.success-message {
+    color: #059669;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.profile-form p.success {
-    color: green;
+/* Loading State */
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .profile-form {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .form-group input:not([type="file"]),
+    .form-group textarea {
+        padding: 0.875rem;
+    }
+}
+
+/* Animation for Success/Error Messages */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.error-message,
+.success-message {
+    animation: slideIn 0.3s ease-out;
 }

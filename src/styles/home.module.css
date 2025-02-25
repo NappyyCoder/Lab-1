@@ -1,0 +1,222 @@
+.homeContainer {
+    padding: 2rem 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.profileGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.profileCard {
+    position: relative;
+    background: var(--background-light);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: cardAppear 0.5s ease-out forwards;
+    opacity: 0;
+    height: 100%;
+}
+
+.darkMode .profileCard {
+    background: var(--background-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.profileCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Pagination Styles */
+.paginationContainer {
+    margin-top: 3rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.paginationButton {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.paginationButton:disabled {
+    background: var(--gray-200);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.paginationButton:not(:disabled):hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.paginationInfo {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: var(--gray-100);
+}
+
+.darkMode .paginationInfo {
+    color: var(--text-light);
+    background: var(--gray-800);
+}
+
+/* Loading State */
+.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.loadingSpinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--gray-200);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.emptyState h2 {
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.darkMode .emptyState h2 {
+    color: var(--text-light);
+}
+
+.emptyState p {
+    color: var(--gray-600);
+    margin-bottom: 2rem;
+}
+
+.darkMode .emptyState p {
+    color: var(--gray-400);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardAppear {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .homeContainer {
+        padding: 1rem;
+    }
+
+    .title {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .profileGrid {
+        gap: 1rem;
+        padding: 0.5rem;
+    }
+
+    .paginationContainer {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .paginationButton {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Card Grid Layout Improvements */
+@media (min-width: 640px) {
+    .profileGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .profileGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1280px) {
+    .profileGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}

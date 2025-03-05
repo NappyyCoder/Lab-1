@@ -1,24 +1,63 @@
-import React, { useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Card2 from "./Card2.jsx";
 import styles from "../styles/home.module.css";
 
-const Home = ({ profiles, darkMode }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const profilesPerPage = 8;
-    const totalPages = Math.ceil(profiles.length / profilesPerPage);
+// Reducer function for pagination state management
+const paginationReducer = (state, action) => {
+    switch (action.type) {
+        case 'SET_PAGE':
+            return {
+                ...state,
+                currentPage: action.payload
+            };
+        case 'SET_TOTAL_PAGES':
+            return {
+                ...state,
+                totalPages: action.payload
+            };
+        case 'NEXT_PAGE':
+            return {
+                ...state,
+                currentPage: Math.min(state.currentPage + 1, state.totalPages)
+            };
+        case 'PREV_PAGE':
+            return {
+                ...state,
+                currentPage: Math.max(state.currentPage - 1, 1)
+            };
+        case 'RESET':
+            return {
+                ...state,
+                currentPage: 1
+            };
+        default:
+            return state;
+    }
+};
 
-    // Reset to first page when profiles change
+const Home = ({ profiles, darkMode }) => {
+    const [paginationState, dispatch] = useReducer(paginationReducer, {
+        currentPage: 1,
+        totalPages: 1,
+        profilesPerPage: 8
+    });
+
+    // Calculate total pages when profiles change
     useEffect(() => {
-        setCurrentPage(1);
+        dispatch({
+            type: 'SET_TOTAL_PAGES',
+            payload: Math.ceil(profiles.length / paginationState.profilesPerPage)
+        });
+        dispatch({ type: 'RESET' });
     }, [profiles]);
 
     // Calculate profiles for current page
-    const startIndex = (currentPage - 1) * profilesPerPage;
-    const currentProfiles = profiles.slice(startIndex, startIndex + profilesPerPage);
-
-    const handleNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages));
-    const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1));
+    const startIndex = (paginationState.currentPage - 1) * paginationState.profilesPerPage;
+    const currentProfiles = profiles.slice(
+        startIndex,
+        startIndex + paginationState.profilesPerPage
+    );
 
     if (!profiles.length) {
         return (
@@ -50,35 +89,25 @@ const Home = ({ profiles, darkMode }) => {
                 ))}
             </div>
 
-            {totalPages > 1 && (
-                <div className={styles.paginationContainer}>
-                    <button
-                        className={styles.paginationButton}
-                        onClick={handlePrevPage}
-                        disabled={currentPage === 1}
-                    >
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                        Previous
-                    </button>
-
-                    <div className={styles.paginationInfo}>
-                        Page {currentPage} of {totalPages}
-                    </div>
-
-                    <button
-                        className={styles.paginationButton}
-                        onClick={handleNextPage}
-                        disabled={currentPage === totalPages}
-                    >
-                        Next
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                    </button>
-                </div>
-            )}
+            <div className={styles.paginationContainer}>
+                <button
+                    onClick={() => dispatch({ type: 'PREV_PAGE' })}
+                    disabled={paginationState.currentPage === 1}
+                    className={styles.paginationButton}
+                >
+                    Previous
+                </button>
+                <span>
+                    Page {paginationState.currentPage} of {paginationState.totalPages}
+                </span>
+                <button
+                    onClick={() => dispatch({ type: 'NEXT_PAGE' })}
+                    disabled={paginationState.currentPage === paginationState.totalPages}
+                    className={styles.paginationButton}
+                >
+                    Next
+                </button>
+            </div>
         </div>
     );
 };

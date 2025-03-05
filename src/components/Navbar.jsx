@@ -1,23 +1,31 @@
 // components/Navbar.jsx
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useMode } from "../context/ModeContext.jsx";
+import { useAuth } from "../context/AuthContext.jsx";
 import styles from "../styles/navbar.module.css";
 
 const Navbar = () => {
     const { darkMode, toggleDarkMode } = useMode();
+    const { isAuthenticated, logout } = useAuth();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const isActive = (path) => location.pathname === path;
 
     const navLinks = [
         { path: "/home", label: "Home" },
-        { path: "/add-profile", label: "Add Profile" },
+        ...(isAuthenticated ? [{ path: "/add-profile", label: "Add Profile" }] : []),
         { path: "/about", label: "About" }
     ];
 
     const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
+    const handleLogout = () => {
+        logout();
+        navigate('/home');
+    };
 
     return (
         <nav className={`${styles.navbar} ${darkMode ? styles.darkMode : ''}`}>
@@ -38,6 +46,15 @@ const Navbar = () => {
                             {label}
                         </Link>
                     ))}
+                    {isAuthenticated ? (
+                        <button onClick={handleLogout} className={styles.authButton}>
+                            Logout
+                        </button>
+                    ) : (
+                        <Link to="/login" className={styles.authButton}>
+                            Login
+                        </Link>
+                    )}
                     <button onClick={toggleDarkMode} className={styles.modeToggle}>
                         {darkMode ? (
                             <>
@@ -87,6 +104,15 @@ const Navbar = () => {
                             {label}
                         </Link>
                     ))}
+                    {isAuthenticated ? (
+                        <button onClick={handleLogout} className={styles.authButton}>
+                            Logout
+                        </button>
+                    ) : (
+                        <Link to="/login" className={styles.authButton}>
+                            Login
+                        </Link>
+                    )}
                     <button onClick={() => { toggleDarkMode(); toggleMobileMenu(); }} className={styles.modeToggle}>
                         {darkMode ? 'Light Mode' : 'Dark Mode'}
                     </button>

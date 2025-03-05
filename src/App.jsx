@@ -9,6 +9,9 @@ import Wrapper from "./components/Wrapper.jsx";
 import ProfileDetail from "./components/ProfileDetail.jsx";
 import EditProfile from "./components/EditProfile.jsx";
 import { ModeProvider, useMode } from "./context/ModeContext.jsx";
+import { AuthProvider, useAuth } from "./context/AuthContext.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Login from "./components/Login.jsx";
 
 import "./App.css";
 
@@ -50,10 +53,25 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<Home profiles={profiles} darkMode={darkMode} />} />
             <Route path="/home" element={<Home profiles={profiles} darkMode={darkMode} />} />
-            <Route path="/add-profile" element={<AddProfile />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/add-profile"
+              element={
+                <ProtectedRoute>
+                  <AddProfile />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/about" element={<About />} />
             <Route path="/profile/:id" element={<ProfileDetail profiles={profiles} />} />
-            <Route path="/profile/:id/edit" element={<EditProfile />} />
+            <Route
+              path="/profile/:id/edit"
+              element={
+                <ProtectedRoute>
+                  <EditProfile />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Wrapper>
@@ -64,9 +82,11 @@ function AppContent() {
 
 function App() {
   return (
-    <ModeProvider>
-      <AppContent />
-    </ModeProvider>
+    <AuthProvider>
+      <ModeProvider>
+        <AppContent />
+      </ModeProvider>
+    </AuthProvider>
   );
 }
 

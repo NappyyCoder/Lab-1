@@ -4,7 +4,7 @@ export const initialState = {
     profilesPerPage: 8
 };
 
-export const homeReducer = (state, action) => {
+export const paginationReducer = (state, action) => {
     switch (action.type) {
         case 'SET_PAGE':
             return {

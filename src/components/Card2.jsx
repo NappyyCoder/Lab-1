@@ -1,11 +1,11 @@
+import React, { memo, useRef, useLayoutEffect, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import styles from '../styles/card.module.css';
 import { useNavigate } from 'react-router-dom';
-import { useRef, useLayoutEffect, useState } from 'react';
 import { useImageLoader } from '../hooks/useImageLoader';
 
-const Card2 = ({ id, image_url, name, title, email }) => {
+const Card2 = memo(({ id, image_url, name, title, email }) => {
     const navigate = useNavigate();
     const cardRef = useRef(null);
     const [cardWidth, setCardWidth] = useState(0);
@@ -26,11 +26,19 @@ const Card2 = ({ id, image_url, name, title, email }) => {
         }
     }, []);
 
+    const handleNavigate = useCallback(() => {
+        navigate(`/profile/${id}`);
+    }, [navigate, id]);
+
+    const handleEmailClick = useCallback((e) => {
+        e.stopPropagation();
+    }, []);
+
     return (
         <motion.div
             ref={cardRef}
             className={styles.profileCard}
-            onClick={() => navigate(`/profile/${id}`)}
+            onClick={handleNavigate}
             whileHover={{ scale: 1.05 }}
             style={{
                 cursor: 'pointer',
@@ -52,7 +60,7 @@ const Card2 = ({ id, image_url, name, title, email }) => {
                 <p>
                     <a
                         href={`mailto:${email}`}
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={handleEmailClick}
                     >
                         {email}
                     </a>
@@ -60,13 +68,15 @@ const Card2 = ({ id, image_url, name, title, email }) => {
             </div>
         </motion.div>
     );
-};
+});
+
+Card2.displayName = 'Card2';
 
 Card2.propTypes = {
     id: PropTypes.string.isRequired,
     image_url: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    title: PropTypes.string,
+    title: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired
 };
 

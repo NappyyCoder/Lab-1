@@ -1,23 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useMode } from "../context/ModeContext.jsx";
+import { useMode } from "../context/ModeContext";
 import styles from "../styles/profiledetail.module.css";
 
-const ProfileDetail = ({ profiles }) => {
+const ProfileDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { darkMode } = useMode();
+    const { darkMode } = useMode() || { darkMode: false }; // Provide default value
     const [profile, setProfile] = useState(null);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch(`https://web.ics.purdue.edu/~clayl/test/fetch-data-with-id.php?id=${id}`)
-            .then(res => res.json())
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error('Failed to fetch profile');
+                }
+                return res.json();
+            })
             .then(data => setProfile(data))
-            .catch(error => console.error("Error fetching data:", error));
+            .catch(error => {
+                console.error("Error fetching data:", error);
+                setError(error.message);
+            });
     }, [id]);
 
+    if (error) {
+        return <div className={styles.error}>Error: {error}</div>;
+    }
+
     if (!profile) {
-        return <div>Loading...</div>;
+        return <div className={styles.loading}>Loading...</div>;
     }
 
     return (

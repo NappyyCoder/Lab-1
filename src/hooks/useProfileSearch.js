@@ -1,25 +1,28 @@
 import { useState, useEffect, useMemo } from 'react';
 
-export const useProfileSearch = (profiles, initialSearchTerms = { general: '', title: '', email: '' }) => {
+export const useProfileSearch = (profiles = [], initialSearchTerms = { general: '', title: '', email: '' }) => {
     const [filteredProfiles, setFilteredProfiles] = useState(profiles);
     const [searchTerms, setSearchTerms] = useState(initialSearchTerms);
 
     // Get unique titles from profiles
     const uniqueTitles = useMemo(() => {
-        const titles = profiles
+        if (!Array.isArray(profiles)) return [];
+
+        return profiles
             .map(profile => profile.title)
             .filter(title => title) // Remove null/undefined
             .filter((title, index, self) => self.indexOf(title) === index) // Remove duplicates
             .sort(); // Sort alphabetically
-        return titles;
     }, [profiles]);
 
     const searchProfiles = useMemo(() => {
         return (profiles, terms) => {
+            if (!Array.isArray(profiles)) return [];
+
             return profiles.filter(profile => {
                 // General search across all fields
                 if (terms.general) {
-                    const searchString = `${profile.name} ${profile.title} ${profile.email}`.toLowerCase();
+                    const searchString = `${profile.name || ''} ${profile.title || ''} ${profile.email || ''}`.toLowerCase();
                     if (!searchString.includes(terms.general.toLowerCase())) {
                         return false;
                     }

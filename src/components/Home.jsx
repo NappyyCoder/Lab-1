@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useReducer, useEffect, lazy, Suspense, memo } from 'react';
+import React, { useCallback, useMemo, useReducer, useEffect, lazy, Suspense, memo, useState } from 'react';
 import styles from '../styles/home.module.css';
 import { useProfileSearch } from '../hooks/useProfileSearch';
 import { paginationReducer, initialState } from '../reducers/homeReducer';
@@ -8,7 +8,27 @@ const SearchSection = lazy(() => import('./SearchSection'));
 const ProfileGrid = lazy(() => import('./ProfileGrid'));
 const PaginationSection = lazy(() => import('./PaginationSection'));
 
-const Home = ({ profiles, darkMode }) => {
+const Home = ({ darkMode }) => {
+    const [profiles, setProfiles] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchProfiles = async () => {
+            try {
+                const response = await fetch('https://web.ics.purdue.edu/~clayl/test/fetch-data.php');
+                const data = await response.json();
+                setProfiles(data);
+                setLoading(false);
+            } catch (err) {
+                setError('Failed to fetch profiles');
+                setLoading(false);
+            }
+        };
+
+        fetchProfiles();
+    }, []);
+
     const {
         filteredProfiles,
         searchTerms,
@@ -29,7 +49,6 @@ const Home = ({ profiles, darkMode }) => {
         dispatch({ type: 'RESET' });
     }, [filteredProfiles]);
 
-    // Memoize pagination handlers
     const handlePrevPage = useCallback(() => {
         dispatch({ type: 'PREV_PAGE' });
     }, []);
@@ -38,7 +57,6 @@ const Home = ({ profiles, darkMode }) => {
         dispatch({ type: 'NEXT_PAGE' });
     }, []);
 
-    // Memoize current profiles calculation
     const currentProfiles = useMemo(() => {
         const startIndex = (paginationState.currentPage - 1) * paginationState.profilesPerPage;
         return filteredProfiles.slice(
@@ -46,6 +64,14 @@ const Home = ({ profiles, darkMode }) => {
             startIndex + paginationState.profilesPerPage
         );
     }, [filteredProfiles, paginationState.currentPage, paginationState.profilesPerPage]);
+
+    if (loading) {
+        return <div className={styles.loading}>Loading profiles...</div>;
+    }
+
+    if (error) {
+        return <div className={styles.error}>{error}</div>;
+    }
 
     return (
         <div className={`${styles.homeContainer} ${darkMode ? styles.darkMode : ''}`}>
@@ -81,4 +107,4 @@ const Home = ({ profiles, darkMode }) => {
     );
 };
 
-export default memo(Home);
+export default Home;
